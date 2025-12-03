@@ -8,12 +8,16 @@ import crypto from 'node:crypto'
 // Configure SHA-512 for ed25519 (required by the library)
 ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m))
 
-const privateKey = process.env.ED25519_PRIVATE_KEY
-const publicKey = process.env.ED25519_PUBLIC_KEY
+const privateKeyEnv = process.env.ED25519_PRIVATE_KEY
+const publicKeyEnv = process.env.ED25519_PUBLIC_KEY
 
-if (!privateKey || !publicKey) {
+if (!privateKeyEnv || !publicKeyEnv) {
   throw new Error('ED25519_PRIVATE_KEY and ED25519_PUBLIC_KEY must be set in environment')
 }
+
+// Type-safe after runtime validation
+const privateKey: string = privateKeyEnv
+const publicKey: string = publicKeyEnv
 
 /**
  * Sign a message using Ed25519

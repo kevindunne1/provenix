@@ -5,13 +5,12 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
-import pino from 'pino'
 
 export function buildApp() {
   const app = Fastify({
     logger:
       process.env.NODE_ENV === 'development'
-        ? pino({
+        ? {
             transport: {
               target: 'pino-pretty',
               options: {
@@ -20,7 +19,7 @@ export function buildApp() {
                 ignore: 'pid,hostname',
               },
             },
-          })
+          }
         : true,
   })
 

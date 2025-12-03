@@ -9,7 +9,7 @@ import {
   ErrorCode,
   ErrorMessages,
 } from '@provenix/shared'
-import type { VerifyRequest, VerifyResponse } from '@provenix/shared'
+import type { VerifyRequest, VerifyResponse, ErrorResponse } from '@provenix/shared'
 import { authenticateApiKey } from '../lib/auth'
 import { rateLimitMiddleware } from '../lib/rateLimit'
 import { verifySignature, hashText } from '../lib/crypto'
@@ -17,7 +17,7 @@ import { verifySignature, hashText } from '../lib/crypto'
 const prisma = new PrismaClient()
 
 const verifyRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
-  app.post<{ Body: VerifyRequest; Reply: VerifyResponse }>(
+  app.post<{ Body: VerifyRequest; Reply: VerifyResponse | ErrorResponse }>(
     '/verify',
     {
       preHandler: [authenticateApiKey, rateLimitMiddleware],
