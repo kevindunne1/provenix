@@ -1,0 +1,31 @@
+{
+  "name": "@provenix/widget",
+  "version": "0.1.0",
+  "description": "Embeddable verification widget for Provenix manifests",
+  "type": "module",
+  "main": "./dist/provenix-widget.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "provenix",
+    "verification",
+    "web-component",
+    "widget"
+  ],
+  "author": "Kevin Dunne",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.9.6",
+    "typescript": "^5.3.3"
+  }
+}

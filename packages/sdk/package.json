@@ -1,0 +1,46 @@
+{
+  "name": "@provenix/sdk",
+  "version": "0.1.0",
+  "description": "Official JavaScript/TypeScript SDK for Provenix - cryptographic text provenance",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "provenance",
+    "cryptography",
+    "text-verification",
+    "digital-signature",
+    "ai-detection"
+  ],
+  "author": "Kevin Dunne",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevindunne1/provenix.git",
+    "directory": "packages/sdk"
+  },
+  "dependencies": {
+    "@provenix/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  }
+}

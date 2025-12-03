@@ -1,0 +1,62 @@
+// Provenix Database Schema
+// PostgreSQL database for storing users, API keys, manifests, and usage logs
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String    // bcrypt hashed
+  createdAt    DateTime  @default(now())
+
+  apiKeys      ApiKey[]
+  manifests    Manifest[]
+}
+
+model ApiKey {
+  id          String    @id @default(uuid())
+  keyHash     String    @unique  // bcrypt hash of actual key
+  keyPrefix   String    // First 12 chars for display (e.g., "prov_live_abc...")
+  name        String?   // User-defined label ("Production", "Staging")
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  lastUsedAt  DateTime?
+
+  usageLogs   UsageLog[]
+
+  @@index([keyHash])
+  @@index([userId])
+}
+
+model Manifest {
+  id         String   @id @default(uuid())
+  hash       String   @unique  // SHA-256 of original text
+  manifest   Json     // { hash, timestamp, metadata, version }
+  signature  String   // Ed25519 signature (hex)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@index([hash])
+  @@index([userId, createdAt(sort: Desc)])
+}
+
+model UsageLog {
+  id         String   @id @default(uuid())
+  apiKeyId   String
+  apiKey     ApiKey   @relation(fields: [apiKeyId], references: [id], onDelete: Cascade)
+  endpoint   String   // "/api/v1/sign" or "/api/v1/verify"
+  statusCode Int      // 200, 401, 429, etc.
+  timestamp  DateTime @default(now())
+
+  @@index([apiKeyId, timestamp(sort: Desc)])
+  @@index([timestamp(sort: Desc)])
+}

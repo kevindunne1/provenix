@@ -1,0 +1,5 @@
+# Core utilities will be implemented here
+# - crypto.ts (Ed25519 signing/verification)
+# - auth.ts (API key validation)
+# - ratelimit.ts (in-memory rate limiter)
+# - db.ts (Prisma client singleton)
