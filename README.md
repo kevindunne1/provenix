@@ -363,7 +363,7 @@ MIT License - see [LICENSE](./LICENSE) file.
 
 **Kevin Dunne**
 - GitHub: [@kevindunne1](https://github.com/kevindunne1)
-- Email: [your-email] (add after decision to proceed)
+- Email: tbc
 
 ---
 
