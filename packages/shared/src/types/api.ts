@@ -1,4 +1,4 @@
-import type { Manifest } from './manifest'
+import type { Manifest } from './manifest.js'
 
 /**
  * API request/response types
