@@ -38,3 +38,4 @@ prisma/dev.db-journal
 # Temporary files
 *.tmp
 .cache
+PRODUCTION_SECRETS.txt

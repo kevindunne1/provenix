@@ -40,10 +40,9 @@ export function buildApp() {
     return { status: 'ok', timestamp: new Date().toISOString() }
   })
 
-  // TODO: Register route handlers
-  // app.register(signRoute, { prefix: '/api/v1' })
-  // app.register(verifyRoute, { prefix: '/api/v1' })
-  // app.register(keysRoute, { prefix: '/api/v1' })
+  // Register route handlers
+  app.register(import('./routes/sign'), { prefix: '/api/v1' })
+  app.register(import('./routes/verify'), { prefix: '/api/v1' })
 
   return app
 }

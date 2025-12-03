@@ -1,0 +1,10 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "pnpm install && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/api build"
+
+[deploy]
+startCommand = "cd packages/api && node dist/server.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
