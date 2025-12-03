@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pnpm install && rm -f packages/shared/tsconfig.tsbuildinfo packages/api/tsconfig.tsbuildinfo && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/api build"
+buildCommand = "pnpm install && rm -f packages/shared/tsconfig.tsbuildinfo packages/api/tsconfig.tsbuildinfo && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/api build && cd packages/api && npx prisma migrate deploy"
 
 [deploy]
 startCommand = "cd packages/api && node dist/server.js"
