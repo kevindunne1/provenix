@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { ProvenixClient } from '@provenix/sdk'
 import type { SignResponse } from '@provenix/shared'
 
-// Initialize SDK with test API key (from seed)
+// Initialize SDK with API key from environment
 const client = new ProvenixClient({
-  apiKey: 'prov_test_2b220e07e2275a114670604ea4a0b3e1a9330e4d2c8edb2a',
+  apiKey: import.meta.env.VITE_API_KEY || 'prov_test_2b220e07e2275a114670604ea4a0b3e1a9330e4d2c8edb2a',
   baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3001',
 })
 
