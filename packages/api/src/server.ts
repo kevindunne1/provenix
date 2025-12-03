@@ -2,7 +2,7 @@
  * Provenix API Server Entry Point
  * Starts Fastify server with all routes and plugins
  */
-import { buildApp } from './app'
+import { buildApp } from './app.js'
 
 const start = async () => {
   const app = buildApp()

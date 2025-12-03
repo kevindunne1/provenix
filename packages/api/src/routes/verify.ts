@@ -10,9 +10,9 @@ import {
   ErrorMessages,
 } from '@provenix/shared'
 import type { VerifyRequest, VerifyResponse, ErrorResponse } from '@provenix/shared'
-import { authenticateApiKey } from '../lib/auth'
-import { rateLimitMiddleware } from '../lib/rateLimit'
-import { verifySignature, hashText } from '../lib/crypto'
+import { authenticateApiKey } from '../lib/auth.js'
+import { rateLimitMiddleware } from '../lib/rateLimit.js'
+import { verifySignature, hashText } from '../lib/crypto.js'
 
 const prisma = new PrismaClient()
 
