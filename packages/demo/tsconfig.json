@@ -11,7 +11,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@provenix/shared": ["../shared/src"],
+      "@provenix/sdk": ["../sdk/src"]
+    }
   },
   "include": ["src"],
   "references": [
