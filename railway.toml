@@ -1,9 +1,9 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pnpm install && rm -f packages/shared/tsconfig.tsbuildinfo packages/api/tsconfig.tsbuildinfo && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/api build && cd packages/api && npx prisma migrate deploy"
+buildCommand = "pnpm install && rm -f packages/shared/tsconfig.tsbuildinfo packages/api/tsconfig.tsbuildinfo && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/api build"
 
 [deploy]
-startCommand = "cd packages/api && node dist/server.js"
+startCommand = "cd packages/api && npx prisma migrate deploy && node dist/server.js"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
