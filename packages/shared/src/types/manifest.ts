@@ -2,6 +2,8 @@
  * Core manifest structure for cryptographic text provenance
  */
 export interface Manifest {
+  /** The original text content */
+  content: string
   /** SHA-256 hash of the original text */
   hash: string
   /** ISO 8601 timestamp when manifest was created */

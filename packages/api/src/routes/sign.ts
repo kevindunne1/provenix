@@ -56,6 +56,7 @@ const signRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
 
         // Create manifest
         const manifest = {
+          content: text,
           hash,
           timestamp,
           metadata,

@@ -15,6 +15,7 @@ export type SignRequestInput = z.infer<typeof SignRequestSchema>
 
 // ----- Verify Request Schema -----
 export const ManifestSchema = z.object({
+  content: z.string(),
   hash: z.string().min(1),
   timestamp: z.string().datetime(),
   metadata: z.record(z.string(), z.unknown()).optional(),
@@ -22,7 +23,7 @@ export const ManifestSchema = z.object({
 })
 
 export const VerifyRequestSchema = z.object({
-  text: z.string().min(1),
+  text: z.string().min(1).optional(),
   signature: z.string().min(1),
   manifest: ManifestSchema,
 })

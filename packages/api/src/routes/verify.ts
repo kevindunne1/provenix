@@ -38,8 +38,20 @@ const verifyRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
 
         const { text, signature, manifest } = validation.data
 
+        // Extract text from manifest if not provided in request
+        const textToVerify = text || manifest.content
+
+        if (!textToVerify) {
+          return reply.status(400).send({
+            error: {
+              code: ErrorCode.INVALID_REQUEST,
+              message: 'Text must be provided either in request body or manifest.content',
+            },
+          })
+        }
+
         // 1. Check hash match
-        const computedHash = hashText(text)
+        const computedHash = hashText(textToVerify)
         const hashMatch = computedHash === manifest.hash
 
         // 2. Verify signature
