@@ -16,13 +16,13 @@ function App() {
   const [signError, setSignError] = useState<string | null>(null)
 
   // Verify tab state
-  const [verifyText, setVerifyText] = useState('')
   const [verifyManifest, setVerifyManifest] = useState('')
   const [verifyLoading, setVerifyLoading] = useState(false)
   const [verifyResult, setVerifyResult] = useState<{
     valid: boolean
     hashMatch: boolean
     signatureValid: boolean
+    originalText?: string
   } | null>(null)
   const [verifyError, setVerifyError] = useState<string | null>(null)
 
@@ -51,8 +51,9 @@ function App() {
 
     try {
       const manifest = JSON.parse(verifyManifest) as SignResponse
-      const result = await client.verify(verifyText, manifest)
-      setVerifyResult(result)
+      const originalText = manifest.manifest.content
+      const result = await client.verify(originalText, manifest)
+      setVerifyResult({ ...result, originalText })
     } catch (err: any) {
       setVerifyError(err.message || 'Failed to verify text')
     } finally {
@@ -178,29 +179,17 @@ function App() {
           <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
             <h2 className="text-2xl font-semibold mb-4">Verify Text</h2>
             <p className="text-gray-600 mb-6">
-              Verify that text hasn't been modified since it was signed.
+              Paste a signed manifest to verify its authenticity. The original text is extracted from the manifest.
             </p>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Original Text
-                </label>
-                <textarea
-                  className="w-full h-24 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Paste the original text..."
-                  value={verifyText}
-                  onChange={(e) => setVerifyText(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Signed Manifest (JSON)
                 </label>
                 <textarea
-                  className="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                  placeholder='Paste the signed manifest JSON (e.g., {"hash": "...", "signature": "...", ...})'
+                  className="w-full h-40 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                  placeholder='Paste the signed manifest JSON here...'
                   value={verifyManifest}
                   onChange={(e) => setVerifyManifest(e.target.value)}
                 />
@@ -208,10 +197,10 @@ function App() {
 
               <button
                 onClick={handleVerify}
-                disabled={!verifyText.trim() || !verifyManifest.trim() || verifyLoading}
+                disabled={!verifyManifest.trim() || verifyLoading}
                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {verifyLoading ? 'Verifying...' : 'Verify Text'}
+                {verifyLoading ? 'Verifying...' : 'Verify Manifest'}
               </button>
 
               {verifyError && (
@@ -230,9 +219,9 @@ function App() {
                   }`}
                 >
                   <p className={`font-semibold text-lg mb-3 ${verifyResult.valid ? 'text-green-900' : 'text-red-900'}`}>
-                    {verifyResult.valid ? '✓ Text is Authentic' : '✗ Verification Failed'}
+                    {verifyResult.valid ? '✓ Signature is Valid' : '✗ Verification Failed'}
                   </p>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-3 text-sm">
                     <div className="flex items-center">
                       <span className={verifyResult.hashMatch ? 'text-green-700' : 'text-red-700'}>
                         {verifyResult.hashMatch ? '✓' : '✗'}
@@ -245,6 +234,14 @@ function App() {
                       </span>
                       <span className="ml-2">Signature Valid: {verifyResult.signatureValid ? 'Yes' : 'No (manifest tampered)'}</span>
                     </div>
+                    {verifyResult.originalText && (
+                      <div className="mt-4 pt-3 border-t border-gray-300">
+                        <p className="font-medium text-gray-700 mb-2">Original Text:</p>
+                        <div className="p-3 bg-white rounded border border-gray-200 text-gray-800 whitespace-pre-wrap">
+                          {verifyResult.originalText}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -268,8 +265,8 @@ function App() {
             <div>
               <h4 className="font-semibold text-blue-600 mb-2">Verifying</h4>
               <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
-                <li>Paste original text and manifest</li>
-                <li>Provenix recomputes text hash</li>
+                <li>Paste signed manifest (contains text)</li>
+                <li>Provenix extracts and recomputes hash</li>
                 <li>Verifies Ed25519 signature</li>
                 <li>Confirms authenticity or detects tampering</li>
               </ol>
