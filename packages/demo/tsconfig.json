@@ -11,17 +11,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "@provenix/shared": ["../shared/src"],
-      "@provenix/sdk": ["../sdk/src"]
-    }
+    "types": ["vite/client"]
   },
   "include": ["src"],
-  "references": [
-    { "path": "./tsconfig.node.json" },
-    { "path": "../shared" },
-    { "path": "../sdk" }
-  ]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
