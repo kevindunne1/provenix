@@ -39,3 +39,4 @@ prisma/dev.db-journal
 *.tmp
 .cache
 PRODUCTION_SECRETS.txt
+.vercel

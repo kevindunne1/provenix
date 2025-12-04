@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { ProvenixClient } from '@provenix/sdk'
 import type { SignResponse } from '@provenix/shared'
 import { Loader2 } from 'lucide-react'
@@ -242,6 +243,7 @@ function App() {
           </p>
         </footer>
       </div>
+      <Analytics />
     </div>
   )
 }
