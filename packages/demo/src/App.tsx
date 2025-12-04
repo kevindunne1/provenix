@@ -1,6 +1,17 @@
 import { useState } from 'react'
 import { ProvenixClient } from '@provenix/sdk'
 import type { SignResponse } from '@provenix/shared'
+import { Loader2 } from 'lucide-react'
+
+// UI Components
+import { Button } from './components/ui/button'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './components/ui/card'
+import { Textarea } from './components/ui/textarea'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './components/ui/tabs'
+import { ManifestViewer } from './components/ui/manifest-viewer'
+import { SuccessCard } from './components/ui/success-card'
+import { ErrorCard } from './components/ui/error-card'
+import { VerificationResult } from './components/ui/verification-result'
 
 // Initialize SDK with API key from environment
 const client = new ProvenixClient({
@@ -61,224 +72,172 @@ function App() {
     }
   }
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-background py-12 px-4">
+      <div className="max-w-container mx-auto">
+        {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">Provenix</h1>
-          <p className="text-2xl text-gray-700 mb-2">
+          <h1 className="text-h1 text-neutral-900 mb-4">Provenix</h1>
+          <p className="text-h3 text-neutral-700 mb-3">
             AI detection is guesswork. Provenance is evidence.
           </p>
-          <p className="text-gray-600">
+          <p className="text-body text-neutral-500">
             Sign and verify text with cryptographic proof in under 60 seconds.
           </p>
         </header>
 
-        {/* Tab Navigation */}
-        <div className="flex mb-6 border-b border-gray-300">
-          <button
-            onClick={() => setActiveTab('sign')}
-            className={`px-6 py-3 font-semibold transition ${
-              activeTab === 'sign'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Sign Text
-          </button>
-          <button
-            onClick={() => setActiveTab('verify')}
-            className={`px-6 py-3 font-semibold transition ${
-              activeTab === 'verify'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Verify Text
-          </button>
-        </div>
+        {/* Tabs */}
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'sign' | 'verify')}>
+          <TabsList>
+            <TabsTrigger value="sign">Sign Text</TabsTrigger>
+            <TabsTrigger value="verify">Verify Text</TabsTrigger>
+          </TabsList>
 
-        {/* Sign Tab */}
-        {activeTab === 'sign' && (
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <h2 className="text-2xl font-semibold mb-4">Sign Text</h2>
-            <p className="text-gray-600 mb-6">
-              Generate a cryptographic signature for your text that proves its authenticity.
-            </p>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Enter text to sign
-                </label>
-                <textarea
-                  className="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your text here..."
-                  value={signText}
-                  onChange={(e) => setSignText(e.target.value)}
-                />
-              </div>
-
-              <button
-                onClick={handleSign}
-                disabled={!signText.trim() || signLoading}
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {signLoading ? 'Signing...' : 'Sign Text'}
-              </button>
-
-              {signError && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-                  <p className="font-semibold">Error</p>
-                  <p className="text-sm">{signError}</p>
-                </div>
-              )}
-
-              {signResult && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="font-semibold text-green-900">✓ Text Signed Successfully</p>
-                    <button
-                      onClick={() => copyToClipboard(JSON.stringify(signResult, null, 2))}
-                      className="text-sm text-blue-600 hover:text-blue-800"
-                    >
-                      Copy Manifest
-                    </button>
+          {/* Sign Tab */}
+          <TabsContent value="sign">
+            <Card>
+              <CardHeader>
+                <CardTitle>Sign Text</CardTitle>
+                <CardDescription>
+                  Generate a cryptographic signature for your text that proves its authenticity.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-body-sm font-medium text-neutral-900 mb-2">
+                      Enter text to sign
+                    </label>
+                    <Textarea
+                      placeholder="Enter your text here..."
+                      value={signText}
+                      onChange={(e) => setSignText(e.target.value)}
+                      className="min-h-[160px]"
+                    />
                   </div>
-                  <div className="space-y-2 text-sm">
-                    <div>
-                      <span className="font-medium">Hash:</span>{' '}
-                      <code className="text-xs bg-white px-1 py-0.5 rounded">{signResult.hash.substring(0, 16)}...</code>
-                    </div>
-                    <div>
-                      <span className="font-medium">Signature:</span>{' '}
-                      <code className="text-xs bg-white px-1 py-0.5 rounded">{signResult.signature.substring(0, 16)}...</code>
-                    </div>
-                    <div>
-                      <span className="font-medium">Timestamp:</span> {signResult.manifest.timestamp}
-                    </div>
-                    <details className="mt-2">
-                      <summary className="cursor-pointer text-blue-600 hover:text-blue-800">View Full Manifest</summary>
-                      <pre className="mt-2 p-3 bg-white rounded text-xs overflow-x-auto">
-                        {JSON.stringify(signResult, null, 2)}
-                      </pre>
-                    </details>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
 
-        {/* Verify Tab */}
-        {activeTab === 'verify' && (
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <h2 className="text-2xl font-semibold mb-4">Verify Text</h2>
-            <p className="text-gray-600 mb-6">
-              Paste a signed manifest to verify its authenticity. The original text is extracted from the manifest.
-            </p>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Signed Manifest (JSON)
-                </label>
-                <textarea
-                  className="w-full h-40 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                  placeholder='Paste the signed manifest JSON here...'
-                  value={verifyManifest}
-                  onChange={(e) => setVerifyManifest(e.target.value)}
-                />
-              </div>
-
-              <button
-                onClick={handleVerify}
-                disabled={!verifyManifest.trim() || verifyLoading}
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {verifyLoading ? 'Verifying...' : 'Verify Manifest'}
-              </button>
-
-              {verifyError && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-                  <p className="font-semibold">Error</p>
-                  <p className="text-sm">{verifyError}</p>
-                </div>
-              )}
-
-              {verifyResult && (
-                <div
-                  className={`p-4 border rounded-lg ${
-                    verifyResult.valid
-                      ? 'bg-green-50 border-green-200'
-                      : 'bg-red-50 border-red-200'
-                  }`}
-                >
-                  <p className={`font-semibold text-lg mb-3 ${verifyResult.valid ? 'text-green-900' : 'text-red-900'}`}>
-                    {verifyResult.valid ? '✓ Signature is Valid' : '✗ Verification Failed'}
-                  </p>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center">
-                      <span className={verifyResult.hashMatch ? 'text-green-700' : 'text-red-700'}>
-                        {verifyResult.hashMatch ? '✓' : '✗'}
-                      </span>
-                      <span className="ml-2">Hash Match: {verifyResult.hashMatch ? 'Yes' : 'No (text was modified)'}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <span className={verifyResult.signatureValid ? 'text-green-700' : 'text-red-700'}>
-                        {verifyResult.signatureValid ? '✓' : '✗'}
-                      </span>
-                      <span className="ml-2">Signature Valid: {verifyResult.signatureValid ? 'Yes' : 'No (manifest tampered)'}</span>
-                    </div>
-                    {verifyResult.originalText && (
-                      <div className="mt-4 pt-3 border-t border-gray-300">
-                        <p className="font-medium text-gray-700 mb-2">Original Text:</p>
-                        <div className="p-3 bg-white rounded border border-gray-200 text-gray-800 whitespace-pre-wrap">
-                          {verifyResult.originalText}
-                        </div>
-                      </div>
+                  <Button
+                    onClick={handleSign}
+                    disabled={!signText.trim() || signLoading}
+                    className="w-full"
+                  >
+                    {signLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Signing...
+                      </>
+                    ) : (
+                      'Sign Text'
                     )}
-                  </div>
+                  </Button>
+
+                  {signError && (
+                    <ErrorCard title="Error" description={signError} />
+                  )}
+
+                  {signResult && (
+                    <SuccessCard title="Text Signed Successfully">
+                      <div className="mt-4">
+                        <ManifestViewer manifest={signResult} />
+                      </div>
+                    </SuccessCard>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-        )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Verify Tab */}
+          <TabsContent value="verify">
+            <Card>
+              <CardHeader>
+                <CardTitle>Verify Text</CardTitle>
+                <CardDescription>
+                  Paste a signed manifest to verify its authenticity. The original text is extracted from the manifest.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-body-sm font-medium text-neutral-900 mb-2">
+                      Signed Manifest (JSON)
+                    </label>
+                    <Textarea
+                      placeholder='Paste the signed manifest JSON here...'
+                      value={verifyManifest}
+                      onChange={(e) => setVerifyManifest(e.target.value)}
+                      className="min-h-[200px] font-mono text-code"
+                    />
+                  </div>
+
+                  <Button
+                    onClick={handleVerify}
+                    disabled={!verifyManifest.trim() || verifyLoading}
+                    className="w-full"
+                  >
+                    {verifyLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Verifying...
+                      </>
+                    ) : (
+                      'Verify Manifest'
+                    )}
+                  </Button>
+
+                  {verifyError && (
+                    <ErrorCard title="Verification Error" description={verifyError} />
+                  )}
+
+                  {verifyResult && (
+                    <VerificationResult
+                      valid={verifyResult.valid}
+                      hashMatch={verifyResult.hashMatch}
+                      signatureValid={verifyResult.signatureValid}
+                      originalText={verifyResult.originalText}
+                    />
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
 
         {/* How it works */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-          <h3 className="text-xl font-semibold mb-4">How it works</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold text-blue-600 mb-2">Signing</h4>
-              <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
-                <li>Enter text and click "Sign Text"</li>
-                <li>Provenix generates SHA-256 hash</li>
-                <li>Creates Ed25519 signature</li>
-                <li>Returns signed manifest instantly</li>
-              </ol>
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle>How it works</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-body-lg font-semibold text-primary mb-3">Signing</h4>
+                <ol className="list-decimal list-inside space-y-2 text-body text-neutral-700">
+                  <li>Enter text and click "Sign Text"</li>
+                  <li>Provenix generates SHA-256 hash</li>
+                  <li>Creates Ed25519 signature</li>
+                  <li>Returns signed manifest instantly</li>
+                </ol>
+              </div>
+              <div>
+                <h4 className="text-body-lg font-semibold text-primary mb-3">Verifying</h4>
+                <ol className="list-decimal list-inside space-y-2 text-body text-neutral-700">
+                  <li>Paste signed manifest (contains text)</li>
+                  <li>Provenix extracts and recomputes hash</li>
+                  <li>Verifies Ed25519 signature</li>
+                  <li>Confirms authenticity or detects tampering</li>
+                </ol>
+              </div>
             </div>
-            <div>
-              <h4 className="font-semibold text-blue-600 mb-2">Verifying</h4>
-              <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
-                <li>Paste signed manifest (contains text)</li>
-                <li>Provenix extracts and recomputes hash</li>
-                <li>Verifies Ed25519 signature</li>
-                <li>Confirms authenticity or detects tampering</li>
-              </ol>
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
-        <footer className="text-center text-gray-600 text-sm">
+        {/* Footer */}
+        <footer className="mt-12 text-center text-body-sm text-neutral-500 space-y-2">
           <p>
             Provenix is deterministic provenance, not probabilistic detection.
           </p>
-          <p className="mt-2">
+          <p>
             Built with Ed25519 cryptography • GDPR-compliant • No raw text stored
           </p>
         </footer>
