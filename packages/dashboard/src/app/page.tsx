@@ -14,16 +14,16 @@ export default function Home() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://provenix-eight.vercel.app"
+            href="/login"
             className="inline-flex items-center justify-center px-8 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
           >
-            Try the Demo
+            Get Started Free
           </a>
           <a
-            href="/docs"
+            href="https://provenix-eight.vercel.app"
             className="inline-flex items-center justify-center px-8 py-3 bg-white text-indigo-600 font-semibold rounded-lg border-2 border-indigo-600 hover:bg-indigo-50 transition"
           >
-            Read the Docs
+            Try Live Demo
           </a>
         </div>
       </header>

@@ -40,6 +40,8 @@ export function buildApp() {
   })
 
   // Register route handlers
+  app.register(import('./routes/auth.js'), { prefix: '/api/v1' })
+  app.register(import('./routes/keys.js'), { prefix: '/api/v1' })
   app.register(import('./routes/sign.js'), { prefix: '/api/v1' })
   app.register(import('./routes/verify.js'), { prefix: '/api/v1' })
   app.register(import('./routes/manifests.js'), { prefix: '/api/v1' })
