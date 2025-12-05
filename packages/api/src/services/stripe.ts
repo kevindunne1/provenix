@@ -6,13 +6,20 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+// In development, Stripe is optional (allows local testing without Stripe setup)
+// In production, it's required
 if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY environment variable is required')
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('STRIPE_SECRET_KEY environment variable is required in production')
+  }
+  console.warn('⚠️  STRIPE_SECRET_KEY not set - billing features will be disabled')
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-11-17.clover',
-})
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-11-17.clover',
+    })
+  : null
 
 export const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID || ''
 
@@ -20,6 +27,10 @@ export const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID || ''
  * Create a Stripe customer for a user
  */
 export async function createStripeCustomer(userId: string, email: string): Promise<string> {
+  if (!stripe) {
+    throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY in environment.')
+  }
+
   const customer = await stripe.customers.create({
     email,
     metadata: {
@@ -44,6 +55,10 @@ export async function createCheckoutSession(
   successUrl: string,
   cancelUrl: string
 ): Promise<string> {
+  if (!stripe) {
+    throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY in environment.')
+  }
+
   // Get or create Stripe customer
   const user = await prisma.user.findUnique({ where: { id: userId } })
   if (!user) {
@@ -83,6 +98,10 @@ export async function createCustomerPortalSession(
   userId: string,
   returnUrl: string
 ): Promise<string> {
+  if (!stripe) {
+    throw new Error('Stripe is not configured. Set STRIPE_SECRET_KEY in environment.')
+  }
+
   const user = await prisma.user.findUnique({ where: { id: userId } })
   if (!user?.stripeCustomerId) {
     throw new Error('No Stripe customer found')

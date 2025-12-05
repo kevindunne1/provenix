@@ -25,6 +25,7 @@
     "@prisma/client": "^5.9.0",
     "@provenix/shared": "workspace:*",
     "bcrypt": "^5.1.1",
+    "dotenv": "^17.2.3",
     "fastify": "^4.25.2",
     "pino": "^8.17.2",
     "pino-pretty": "^10.3.1",
