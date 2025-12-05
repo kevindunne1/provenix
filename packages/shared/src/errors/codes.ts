@@ -20,6 +20,7 @@ export enum ErrorCode {
   HASH_MISMATCH = 'HASH_MISMATCH',
   SIGNATURE_INVALID = 'SIGNATURE_INVALID',
   MANIFEST_INVALID = 'MANIFEST_INVALID',
+  MANIFEST_NOT_FOUND = 'MANIFEST_NOT_FOUND',
 
   // Server
   INTERNAL_ERROR = 'INTERNAL_ERROR',
@@ -42,6 +43,7 @@ export const ErrorMessages: Record<ErrorCode, string> = {
   [ErrorCode.HASH_MISMATCH]: 'Text hash does not match manifest',
   [ErrorCode.SIGNATURE_INVALID]: 'Signature verification failed',
   [ErrorCode.MANIFEST_INVALID]: 'Manifest structure is invalid',
+  [ErrorCode.MANIFEST_NOT_FOUND]: 'Manifest not found',
   [ErrorCode.INTERNAL_ERROR]: 'Internal server error',
   [ErrorCode.DATABASE_ERROR]: 'Database operation failed',
   [ErrorCode.SIGNING_FAILED]: 'Failed to sign manifest',
