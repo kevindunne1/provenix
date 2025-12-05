@@ -50,29 +50,77 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">How Provenix Works</h2>
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold text-slate-900 mb-4 text-center">How Provenix Works</h2>
+        <p className="text-lg text-slate-600 mb-12 text-center max-w-2xl mx-auto">
+          Cryptographic proof in three steps. Watch how content gets signed, verified, and shared.
+        </p>
+
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">📝</span>
+          {/* Step 1: Sign */}
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div className="bg-slate-900 text-slate-100 p-4 font-mono text-xs">
+              <div className="text-green-400 mb-2">$ provenix sign "My AI-generated content"</div>
+              <div className="text-slate-400 animate-pulse">Generating signature...</div>
+              <div className="mt-2 text-slate-300 text-[10px] opacity-70">
+                hash: b3f2a1c9...
+                <br />
+                signature: 8d4e2f...
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 mb-3">1. Sign</h3>
-            <p className="text-slate-600">Generate SHA-256 hash + Ed25519 signature for your text</p>
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">1. Sign Your Content</h3>
+              <p className="text-slate-600 text-sm">
+                Generate a cryptographic signature (Ed25519) and hash (SHA-256) for any text.
+                Takes less than 100ms.
+              </p>
+            </div>
           </div>
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">✅</span>
+
+          {/* Step 2: Verify */}
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div className="bg-slate-900 text-slate-100 p-4 font-mono text-xs">
+              <div className="text-green-400 mb-2">$ provenix verify &lt;manifest&gt;</div>
+              <div className="flex items-center gap-2 mt-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-green-400">✓ Signature valid</span>
+              </div>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="text-green-400">✓ Hash matches</span>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 mb-3">2. Verify</h3>
-            <p className="text-slate-600">Anyone can verify authenticity using the public manifest</p>
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">2. Anyone Can Verify</h3>
+              <p className="text-slate-600 text-sm">
+                No account needed. Anyone with the manifest can cryptographically verify the content
+                hasn't been modified.
+              </p>
+            </div>
           </div>
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">🔗</span>
+
+          {/* Step 3: Share */}
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 text-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-3">
+                <div className="text-white text-xs font-mono break-all">
+                  https://provenix.dev/verify/a3c8...
+                </div>
+              </div>
+              <div className="flex items-center justify-center gap-2 text-white text-sm">
+                <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span>Share this URL</span>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 mb-3">3. Share</h3>
-            <p className="text-slate-600">Public verification URLs prove content hasn't been tampered with</p>
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">3. Share Proof Publicly</h3>
+              <p className="text-slate-600 text-sm">
+                Every signature gets a unique verification URL. Share it anywhere - the proof is permanent
+                and tamper-evident.
+              </p>
+            </div>
           </div>
         </div>
       </section>
