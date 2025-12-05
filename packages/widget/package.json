@@ -4,7 +4,15 @@
   "description": "Embeddable verification widget for Provenix manifests",
   "type": "module",
   "main": "./dist/provenix-widget.js",
+  "module": "./dist/provenix-widget.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/provenix-widget.js",
+      "default": "./dist/provenix-widget.js"
+    }
+  },
   "files": [
     "dist"
   ],

@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../.. && pnpm install && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/sdk build && pnpm --filter=@provenix/demo build",
+  "buildCommand": "cd ../.. && pnpm install && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/sdk build && pnpm --filter=@provenix/widget build && pnpm --filter=@provenix/demo build",
   "installCommand": "echo 'Skipping default install'",
   "outputDirectory": "dist",
   "framework": "vite"
