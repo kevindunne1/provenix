@@ -133,6 +133,9 @@ importers:
       '@provenix/sdk':
         specifier: workspace:*
         version: link:../sdk
+      '@provenix/widget':
+        specifier: workspace:*
+        version: link:../widget
       '@vercel/analytics':
         specifier: ^1.6.1
         version: 1.6.1(react@18.3.1)

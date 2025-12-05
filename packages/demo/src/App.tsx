@@ -137,11 +137,27 @@ function App() {
                   )}
 
                   {signResult && (
-                    <SuccessCard title="Text Signed Successfully">
-                      <div className="mt-4">
-                        <ManifestViewer manifest={signResult} />
-                      </div>
-                    </SuccessCard>
+                    <>
+                      <SuccessCard title="Text Signed Successfully">
+                        <div className="mt-4">
+                          <ManifestViewer manifest={signResult} />
+                        </div>
+                      </SuccessCard>
+
+                      <Card className="mt-4">
+                        <CardHeader>
+                          <CardTitle>Embeddable Widget Preview</CardTitle>
+                          <CardDescription>
+                            This is how the widget will appear when embedded in your product.
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <provenix-widget
+                            manifest={JSON.stringify(signResult)}
+                          ></provenix-widget>
+                        </CardContent>
+                      </Card>
+                    </>
                   )}
                 </div>
               </CardContent>
