@@ -69,7 +69,7 @@ const signRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
         const publicKey = getPublicKey()
 
         // Store in database
-        await prisma.manifest.create({
+        const storedManifest = await prisma.manifest.create({
           data: {
             hash,
             manifest: manifest as any, // Prisma Json type
@@ -87,11 +87,16 @@ const signRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
           },
         })
 
+        // Generate verification URL
+        const verificationUrl = `https://provenix.dev/verify/${storedManifest.id}`
+
         return reply.send({
+          manifestId: storedManifest.id,
           hash,
           signature,
           manifest,
           publicKey,
+          verificationUrl,
         })
       } catch (err) {
         request.log.error({ err }, 'Sign endpoint error')

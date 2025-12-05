@@ -45,7 +45,7 @@ const manifestsRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
       }
 
       // Parse stored manifest JSON
-      const manifestData = JSON.parse(storedManifest.manifestJson)
+      const manifestData = storedManifest.manifest as any
 
       return reply.send({
         manifestId: storedManifest.id,

@@ -11,10 +11,12 @@ export interface SignRequest {
 }
 
 export interface SignResponse {
+  manifestId: string
   hash: string
   signature: string
   manifest: Manifest
   publicKey: string
+  verificationUrl: string
 }
 
 // ----- Verify Endpoint -----
