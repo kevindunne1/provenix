@@ -20,6 +20,12 @@ const webhooksRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
       },
     },
     async (request, reply) => {
+      // Check if Stripe is configured
+      if (!stripe) {
+        request.log.error('Stripe not configured')
+        return reply.status(503).send({ error: 'Stripe webhooks not available - payment system not configured' })
+      }
+
       const signature = request.headers['stripe-signature']
       if (!signature || typeof signature !== 'string') {
         return reply.status(400).send({ error: 'Missing stripe-signature header' })
