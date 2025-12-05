@@ -3,6 +3,7 @@
  */
 export enum ErrorCode {
   // Authentication
+  UNAUTHORIZED = 'UNAUTHORIZED',
   INVALID_API_KEY = 'INVALID_API_KEY',
   MISSING_API_KEY = 'MISSING_API_KEY',
   API_KEY_REVOKED = 'API_KEY_REVOKED',
@@ -32,6 +33,7 @@ export enum ErrorCode {
  * Standard error messages
  */
 export const ErrorMessages: Record<ErrorCode, string> = {
+  [ErrorCode.UNAUTHORIZED]: 'Unauthorized - Invalid or missing API key',
   [ErrorCode.INVALID_API_KEY]: 'API key is invalid or has been revoked',
   [ErrorCode.MISSING_API_KEY]: 'API key is required for this endpoint',
   [ErrorCode.API_KEY_REVOKED]: 'API key has been revoked',

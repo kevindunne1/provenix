@@ -6,6 +6,7 @@ import type { FastifyRequest, FastifyReply } from 'fastify'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import { ErrorCode, ErrorMessages } from '@provenix/shared'
+import { checkUsageLimit } from '../services/stripe.js'
 
 const prisma = new PrismaClient()
 
@@ -72,6 +73,22 @@ export async function authenticateApiKey(
       .catch((err) => {
         request.log.warn({ err }, 'Failed to update API key lastUsedAt')
       })
+
+    // Check usage limits
+    const usageCheck = await checkUsageLimit(matchedKey.userId)
+    if (!usageCheck.allowed) {
+      return reply.status(429).send({
+        error: {
+          code: ErrorCode.RATE_LIMIT_EXCEEDED,
+          message: `Free tier limit exceeded (${usageCheck.usage}/${usageCheck.limit} this month). Please upgrade to continue.`,
+          details: {
+            plan: usageCheck.plan,
+            usage: usageCheck.usage,
+            limit: usageCheck.limit,
+          },
+        },
+      })
+    }
 
     // Attach userId and apiKeyId to request
     request.userId = matchedKey.userId

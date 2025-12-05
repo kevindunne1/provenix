@@ -43,6 +43,8 @@ export function buildApp() {
   app.register(import('./routes/sign.js'), { prefix: '/api/v1' })
   app.register(import('./routes/verify.js'), { prefix: '/api/v1' })
   app.register(import('./routes/manifests.js'), { prefix: '/api/v1' })
+  app.register(import('./routes/billing.js'), { prefix: '/api/v1' })
+  app.register(import('./routes/webhooks.js'), { prefix: '/api/v1' })
 
   return app
 }

@@ -11,10 +11,17 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(uuid())
-  email        String    @unique
-  passwordHash String    // bcrypt hashed
-  createdAt    DateTime  @default(now())
+  id                   String    @id @default(uuid())
+  email                String    @unique
+  passwordHash         String    // bcrypt hashed
+  createdAt            DateTime  @default(now())
+
+  // Stripe billing
+  stripeCustomerId     String?   @unique
+  stripeSubscriptionId String?   @unique
+  subscriptionStatus   String?   // "active", "canceled", "past_due", null for free tier
+  currentPeriodEnd     DateTime?
+  plan                 String    @default("free") // "free" or "paid"
 
   apiKeys      ApiKey[]
   manifests    Manifest[]

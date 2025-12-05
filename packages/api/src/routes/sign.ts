@@ -12,7 +12,6 @@ import {
 } from '@provenix/shared'
 import type { SignRequest, SignResponse, ErrorResponse } from '@provenix/shared'
 import { authenticateApiKey } from '../lib/auth.js'
-import { rateLimitMiddleware } from '../lib/rateLimit.js'
 import { signMessage, getPublicKey, hashText } from '../lib/crypto.js'
 
 const prisma = new PrismaClient()
@@ -21,7 +20,7 @@ const signRoute: FastifyPluginAsync = async (app: FastifyInstance) => {
   app.post<{ Body: SignRequest; Reply: SignResponse | ErrorResponse }>(
     '/sign',
     {
-      preHandler: [authenticateApiKey, rateLimitMiddleware],
+      preHandler: authenticateApiKey,
     },
     async (request, reply) => {
       try {
