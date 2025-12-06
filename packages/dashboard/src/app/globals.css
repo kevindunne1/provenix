@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary */
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --primary-light: #EEF2FF;
+
+    /* Neutrals */
+    --neutral-900: #0F172A;
+    --neutral-700: #334155;
+    --neutral-500: #64748B;
+    --neutral-300: #CBD5E1;
+    --neutral-100: #F1F5F9;
+    --neutral-50: #F8FAFC;
+
+    /* Success */
+    --success: #16A34A;
+
+    /* Error */
+    --error: #DC2626;
+  }
+
+  body {
+    @apply text-neutral-700 bg-white;
+  }
+}

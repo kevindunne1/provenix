@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { analytics } from '@/lib/analytics'
 
 export default function LoginPage() {
   const [isSignup, setIsSignup] = useState(false)
@@ -10,6 +11,13 @@ export default function LoginPage() {
   const [error, setError] = useState('')
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://provenixapi-production.up.railway.app'
+
+  useEffect(() => {
+    // Track when user lands on signup vs login
+    if (isSignup) {
+      analytics.signupStarted()
+    }
+  }, [isSignup])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -29,16 +37,35 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json()
+
+        // Track success
+        if (isSignup) {
+          analytics.signupCompleted(data.user?.id || email)
+        } else {
+          analytics.loginSuccess(data.user?.id || email)
+        }
+
         // Store token
         localStorage.setItem('provenix_token', data.token)
         // Redirect to dashboard
         window.location.href = '/dashboard'
       } else {
         const errorData = await response.json()
-        setError(errorData.error?.message || 'Authentication failed')
+        const errorMessage = errorData.error?.message || 'Authentication failed'
+        setError(errorMessage)
+
+        // Track failure
+        if (!isSignup) {
+          analytics.loginFailed(errorMessage)
+        }
       }
     } catch (err) {
-      setError('Network error. Please try again.')
+      const errorMessage = 'Network error. Please try again.'
+      setError(errorMessage)
+
+      if (!isSignup) {
+        analytics.loginFailed(errorMessage)
+      }
     } finally {
       setLoading(false)
     }
