@@ -10,102 +10,72 @@ export default function TermsOfUsePage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold text-neutral-900 mb-4">Terms of Use</h1>
-        <p className="text-neutral-600 mb-8">Effective Date: 1 December 2025</p>
+        <p className="text-neutral-600 mb-8">Last updated: December 2025</p>
 
         <div className="prose prose-neutral max-w-none space-y-8">
-          <p className="text-neutral-600">
-            These Terms of Use govern your access to and use of the Provenix website (provenix.dev). By accessing this
-            website, you agree to these terms.
+          <p className="text-neutral-700">
+            These Terms govern your use of the Provenix platform. By accessing the service you agree to these Terms.
           </p>
 
+          {/* Use of Service */}
           <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">1. Acceptable Use</h2>
-            <div className="text-neutral-600 space-y-2">
-              <p>You may use this website for lawful purposes only. You agree not to:</p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li>Violate any applicable laws or regulations</li>
-                <li>Attempt to gain unauthorized access to our systems</li>
-                <li>Transmit malware, viruses, or malicious code</li>
-                <li>Scrape, crawl, or index the website without permission</li>
-                <li>Impersonate Provenix or falsely claim affiliation</li>
-              </ul>
-            </div>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">2. Restrictions</h2>
-            <div className="text-neutral-600 space-y-2">
-              <p>You may not:</p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li>Modify, reverse-engineer, or decompile any part of the website</li>
-                <li>Use automated systems (bots, scrapers) without written consent</li>
-                <li>Frame or mirror the website on another domain</li>
-                <li>Remove copyright or proprietary notices</li>
-              </ul>
-            </div>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">3. Content Rights</h2>
-            <div className="text-neutral-600 space-y-2">
-              <p>All content on this website (text, graphics, logos, code) is owned by Provenix or its licensors and
-              protected by copyright and trademark laws.</p>
-              <p>You may not reproduce, distribute, or create derivative works without written permission.</p>
-            </div>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">4. Warranty Disclaimer</h2>
-            <div className="bg-neutral-100 border border-neutral-300 p-6 rounded">
-              <p className="text-neutral-900 uppercase font-semibold mb-2">No Warranty</p>
-              <p className="text-neutral-700">
-                This website is provided "AS IS" without warranties of any kind, express or implied. We do not warrant that
-                the website will be uninterrupted, error-free, or secure.
-              </p>
-            </div>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">5. Limitation of Liability</h2>
-            <div className="text-neutral-600 space-y-2">
-              <p>To the maximum extent permitted by law, Provenix is not liable for:</p>
-              <ul className="list-disc list-inside space-y-1 ml-4">
-                <li>Indirect, incidental, or consequential damages</li>
-                <li>Loss of data, revenue, or profits</li>
-                <li>Damages arising from website downtime or errors</li>
-              </ul>
-              <p className="mt-4">Our total liability shall not exceed AUD $100.</p>
-            </div>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">6. Links to Third-Party Sites</h2>
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">Use of Service</h2>
             <p className="text-neutral-600">
-              This website may contain links to third-party websites. We are not responsible for the content or practices
-              of those sites.
+              You may use the Provenix API and dashboard only in accordance with applicable laws. You are responsible for
+              any activity conducted under your account.
             </p>
           </section>
 
+          {/* Customer Data */}
           <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">7. Changes to These Terms</h2>
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">Customer Data</h2>
             <p className="text-neutral-600">
-              We may update these Terms of Use at any time. Changes will be posted on this page with an updated effective
-              date. Continued use of the website constitutes acceptance of changes.
+              Provenix does not store or retain text content submitted to the API. You are responsible for ensuring that
+              you have the right to process any content you submit.
             </p>
           </section>
 
+          {/* Availability */}
           <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">8. Governing Law</h2>
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">Availability</h2>
             <p className="text-neutral-600">
-              These terms are governed by the laws of Western Australia. Any disputes shall be resolved in the courts of
-              Western Australia.
+              We aim to provide reliable service but cannot guarantee uninterrupted uptime. Maintenance or unforeseen
+              outages may occur.
             </p>
           </section>
 
+          {/* Acceptable Use */}
           <section>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">9. Contact</h2>
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">Acceptable Use</h2>
+            <p className="text-neutral-700 mb-3">You may not:</p>
+            <ul className="list-disc list-inside space-y-2 text-neutral-600 ml-4">
+              <li>Use the service to build a competing provenance product</li>
+              <li>Attempt to reverse engineer our signing or verification methods</li>
+              <li>Use the platform for fraudulent, harmful or unlawful behaviour</li>
+            </ul>
+          </section>
+
+          {/* Termination */}
+          <section>
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">Termination</h2>
             <p className="text-neutral-600">
-              For questions about these terms: <a href="mailto:legal@provenix.dev" className="text-primary hover:text-primary-hover">legal@provenix.dev</a>
+              We may suspend or terminate accounts that violate these Terms.
+            </p>
+          </section>
+
+          {/* Limitation of Liability */}
+          <section>
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">Limitation of Liability</h2>
+            <p className="text-neutral-600">
+              Provenix is provided "as-is". To the extent permitted by law, we disclaim liability for indirect or consequential losses.
+            </p>
+          </section>
+
+          {/* Changes */}
+          <section>
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">Changes</h2>
+            <p className="text-neutral-600">
+              We may update these Terms. Continued use constitutes acceptance.
             </p>
           </section>
         </div>

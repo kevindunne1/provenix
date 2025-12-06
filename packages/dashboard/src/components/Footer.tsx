@@ -42,9 +42,14 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:hello@provenix.dev" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
+                <Link href="/contact" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
                   Contact
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
+                  Careers
+                </Link>
               </li>
             </ul>
           </div>
@@ -73,6 +78,11 @@ export default function Footer() {
                   Terms &amp; Conditions
                 </Link>
               </li>
+              <li>
+                <Link href="/dpa" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
+                  Data Processing Addendum
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -86,13 +96,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/security/data-handling" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
-                  Data Handling
+                <Link href="/security/responsible-disclosure" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
+                  Responsible Disclosure
                 </Link>
               </li>
               <li>
-                <Link href="/security/responsible-disclosure" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
-                  Responsible Disclosure
+                <Link href="/subprocessors" className="text-neutral-600 hover:text-neutral-900 transition-colors text-sm">
+                  Subprocessors
                 </Link>
               </li>
             </ul>
