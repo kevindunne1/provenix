@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 interface DecryptingTitleProps {
   text: string
@@ -12,22 +12,22 @@ const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#
 
 export default function DecryptingTitle({ text, className = '' }: DecryptingTitleProps) {
   const [displayText, setDisplayText] = useState(text.split('').map(() => ' '))
-  const [isDecrypting, setIsDecrypting] = useState(true)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.3 })
 
   useEffect(() => {
+    if (!isInView) return
+
     let frame = 0
-    const maxFrames = 30 // Fast and mechanical
+    const maxFrames = 25 // Faster than Gemini's approach
 
     const interval = setInterval(() => {
       frame++
 
-      setDisplayText(() =>
+      setDisplayText(
         text.split('').map((char, index) => {
-          // Already locked in
-          if (frame > (index + 1) * 2) {
-            return char
-          }
-
+          // Lock in progressively from left to right
+          if (frame > (index + 1) * 1.5) return char
           // Still randomizing
           if (char === ' ') return ' '
           return CHARS[Math.floor(Math.random() * CHARS.length)]
@@ -36,32 +36,29 @@ export default function DecryptingTitle({ text, className = '' }: DecryptingTitl
 
       if (frame >= maxFrames) {
         setDisplayText(text.split(''))
-        setIsDecrypting(false)
         clearInterval(interval)
       }
-    }, 50) // 50ms interval = fast mechanical feel
+    }, 40)
 
     return () => clearInterval(interval)
-  }, [text])
+  }, [text, isInView])
 
   return (
-    <h1 className={`font-mono ${className}`}>
+    <motion.h1
+      ref={ref}
+      className={`font-mono ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
       {displayText.map((char, index) => (
-        <motion.span
+        <span
           key={index}
-          initial={{ opacity: 0.5 }}
-          animate={{
-            opacity: !isDecrypting || char === text[index] ? 1 : 0.5,
-            color: !isDecrypting || char === text[index] ? '#ffffff' : '#64748B'
-          }}
-          transition={{
-            duration: 0.1,
-            ease: 'easeOut'
-          }}
+          className={char === text[index] ? 'text-white' : 'text-neutral-500'}
         >
           {char}
-        </motion.span>
+        </span>
       ))}
-    </h1>
+    </motion.h1>
   )
 }
