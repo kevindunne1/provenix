@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { analytics, setupScrollTracking } from '@/lib/analytics'
 import DecryptingTitle from '@/components/hero/DecryptingTitle'
+import CryptoPlayground from '@/components/home/CryptoPlayground'
 
 export default function Home() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null)
@@ -49,6 +50,19 @@ export default function Home() {
           </a>
         </div>
       </header>
+
+      {/* Interactive Playground */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">See It In Action</h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Watch how cryptographic signing works. Type any text and see it get signed instantly.
+          </p>
+        </div>
+        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-12">
+          <CryptoPlayground />
+        </div>
+      </section>
 
       {/* Problem Statement */}
       <section className="max-w-5xl mx-auto px-6 py-16">
