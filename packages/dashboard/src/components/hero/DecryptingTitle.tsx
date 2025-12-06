@@ -54,7 +54,7 @@ export default function DecryptingTitle({ text, className = '' }: DecryptingTitl
       {displayText.map((char, index) => (
         <span
           key={index}
-          className={char === text[index] ? 'text-white' : 'text-neutral-500'}
+          className={char === text[index] ? '' : 'text-neutral-500'}
         >
           {char}
         </span>
