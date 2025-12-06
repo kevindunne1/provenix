@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { analytics, setupScrollTracking } from '@/lib/analytics'
+import DecryptingTitle from '@/components/hero/DecryptingTitle'
 
 export default function Home() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null)
@@ -21,9 +22,10 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-slate-50">
       {/* Hero */}
       <header className="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
-          Cryptographic Provenance <br />for AI-Generated Content
-        </h1>
+        <DecryptingTitle
+          text="Cryptographic Proof for AI Content"
+          className="text-5xl md:text-6xl font-bold text-slate-900 mb-6"
+        />
         <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
           AI detection is guesswork. Provenance is evidence.
         </p>
