@@ -1,12 +1,5 @@
 {
-  "buildCommand": "cd ../.. && pnpm install && pnpm --filter=@provenix/shared build && pnpm --filter=@provenix/sdk build && pnpm --filter=@provenix/dashboard build",
-  "installCommand": "echo 'Skipping default install'",
-  "outputDirectory": ".next",
   "framework": "nextjs",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ]
+  "buildCommand": "pnpm build",
+  "outputDirectory": ".next"
 }
