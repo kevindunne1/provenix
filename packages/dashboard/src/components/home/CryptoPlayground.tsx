@@ -113,7 +113,7 @@ export default function CryptoPlayground() {
         {/* Left Panel: Input */}
         <div className="space-y-4">
           <div className="relative">
-            <label className="block text-sm font-mono font-semibold text-neutral-700 mb-2">
+            <label className="block text-sm font-mono font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
               Input
             </label>
             <div className="relative">
@@ -122,10 +122,11 @@ export default function CryptoPlayground() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Paste AI generated text here..."
                 className={cn(
-                  "w-full h-64 p-4 font-mono text-sm bg-white border rounded-lg resize-none",
+                  "w-full h-64 p-4 font-mono text-sm bg-white dark:bg-neutral-900 border rounded-lg resize-none",
+                  "text-neutral-900 dark:text-neutral-100",
                   "focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
-                  "placeholder:text-neutral-400",
-                  isProcessing ? "border-primary" : "border-neutral-300"
+                  "placeholder:text-neutral-400 dark:placeholder:text-neutral-600",
+                  isProcessing ? "border-primary" : "border-neutral-300 dark:border-neutral-700"
                 )}
                 disabled={isProcessing}
               />
@@ -142,7 +143,7 @@ export default function CryptoPlayground() {
               "w-full px-6 py-4 rounded-lg font-semibold font-mono text-sm flex items-center justify-center gap-3 transition-all",
               inputText.trim() && !isProcessing
                 ? "bg-primary text-white hover:bg-primary-hover shadow-lg hover:shadow-xl"
-                : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+                : "bg-neutral-200 dark:bg-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
             )}
             whileTap={{ scale: inputText.trim() && !isProcessing ? 0.98 : 1 }}
           >
@@ -153,7 +154,7 @@ export default function CryptoPlayground() {
 
         {/* Right Panel: Output */}
         <div className="space-y-4">
-          <label className="block text-sm font-mono font-semibold text-neutral-700 mb-2">
+          <label className="block text-sm font-mono font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
             Signed Manifest
           </label>
           <div className="relative bg-neutral-900 rounded-lg p-4 h-64 overflow-auto font-mono text-xs">
@@ -215,7 +216,7 @@ export default function CryptoPlayground() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-center text-sm text-neutral-600 mt-6 font-mono"
+        className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-6 font-mono"
       >
         This is a client-side demo. Real signing happens server-side with your API key.
       </motion.p>

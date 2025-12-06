@@ -20,18 +20,18 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-slate-50">
+    <div className="min-h-screen">
       {/* Hero */}
       <header className="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
         <DecryptingTitle
           text="Cryptographic Proof for AI Content"
-          className="text-5xl md:text-6xl font-bold text-slate-900 mb-6"
+          className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6"
         />
-        <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
+        <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
           AI detection is guesswork. Provenance is evidence.
         </p>
-        <p className="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
-          Add deterministic, cryptographic proof to any text. No probabilistic detection. No false positives. Just Ed25519 signatures.
+        <p className="text-lg text-slate-500 dark:text-slate-400 mb-10 max-w-2xl mx-auto">
+          Add deterministic, cryptographic proof to any text. No probabilistic detection. No false positives. Just mathematical certainty.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
@@ -54,32 +54,32 @@ export default function Home() {
       {/* Interactive Playground */}
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">See It In Action</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">See It In Action</h2>
+          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Watch how cryptographic signing works. Type any text and see it get signed instantly.
           </p>
         </div>
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-12">
+        <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl border border-slate-200 dark:border-neutral-700 p-8 md:p-12 transition-colors">
           <CryptoPlayground />
         </div>
       </section>
 
       {/* Problem Statement */}
       <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="bg-white rounded-2xl shadow-md border border-slate-200 p-8 md:p-12">
-          <h2 className="text-3xl font-bold text-slate-900 mb-6">Why AI Detection Fails</h2>
+        <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-md border border-slate-200 dark:border-neutral-700 p-8 md:p-12 transition-colors">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Why AI Detection Fails</h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-red-500 text-4xl font-bold mb-3">26%</div>
-              <p className="text-slate-600">False positive rate for leading AI detectors</p>
+              <p className="text-slate-600 dark:text-slate-300">False positive rate for leading AI detectors</p>
             </div>
             <div>
               <div className="text-orange-500 text-4xl font-bold mb-3">Guesswork</div>
-              <p className="text-slate-600">Statistical inference, not proof</p>
+              <p className="text-slate-600 dark:text-slate-300">Statistical inference, not proof</p>
             </div>
             <div>
               <div className="text-yellow-500 text-4xl font-bold mb-3">Broken</div>
-              <p className="text-slate-600">Updates to models break detection</p>
+              <p className="text-slate-600 dark:text-slate-300">Updates to models break detection</p>
             </div>
           </div>
         </div>
@@ -87,15 +87,15 @@ export default function Home() {
 
       {/* How It Works */}
       <section className="max-w-6xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-slate-900 mb-4 text-center">How Provenix Works</h2>
-        <p className="text-lg text-slate-600 mb-12 text-center max-w-2xl mx-auto">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 text-center">How Provenix Works</h2>
+        <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 text-center max-w-2xl mx-auto">
           Cryptographic proof in three steps. Watch how content gets signed, verified, and shared.
         </p>
 
         <div className="grid md:grid-cols-3 gap-8">
           {/* Step 1: Sign */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
-            <div className="bg-slate-900 text-slate-100 p-4 font-mono text-xs h-32 flex flex-col justify-center">
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-slate-200 dark:border-neutral-700 overflow-hidden flex flex-col transition-colors">
+            <div className="bg-slate-900 dark:bg-neutral-950 text-slate-100 p-4 font-mono text-xs h-32 flex flex-col justify-center">
               <div className="text-green-400 mb-2">$ provenix sign "My AI-generated content"</div>
               <div className="text-slate-400 animate-pulse">Generating signature...</div>
               <div className="mt-2 text-slate-300 text-[10px] opacity-70">
@@ -105,17 +105,16 @@ export default function Home() {
               </div>
             </div>
             <div className="p-6 flex-1">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">1. Sign Your Content</h3>
-              <p className="text-slate-600 text-sm">
-                Generate a cryptographic signature (Ed25519) and hash (SHA-256) for any text.
-                Takes less than 100ms.
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">1. Sign Your Content</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                Generate a unique cryptographic signature (Ed25519) for any text. Instant proof of authenticity in under 100ms.
               </p>
             </div>
           </div>
 
           {/* Step 2: Verify */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
-            <div className="bg-slate-900 text-slate-100 p-4 font-mono text-xs h-32 flex flex-col justify-center">
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-slate-200 dark:border-neutral-700 overflow-hidden flex flex-col transition-colors">
+            <div className="bg-slate-900 dark:bg-neutral-950 text-slate-100 p-4 font-mono text-xs h-32 flex flex-col justify-center">
               <div className="text-green-400 mb-2">$ provenix verify &lt;manifest&gt;</div>
               <div className="flex items-center gap-2 mt-2">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
@@ -123,20 +122,19 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-green-400">✓ Hash matches</span>
+                <span className="text-green-400">✓ Content unchanged</span>
               </div>
             </div>
             <div className="p-6 flex-1">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">2. Anyone Can Verify</h3>
-              <p className="text-slate-600 text-sm">
-                No account needed. Anyone with the manifest can cryptographically verify the content
-                hasn't been modified.
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">2. Anyone Can Verify</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                No account needed. Anyone with the proof can verify the content hasn't been modified. Instant trust, zero guesswork.
               </p>
             </div>
           </div>
 
           {/* Step 3: Share */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-slate-200 dark:border-neutral-700 overflow-hidden flex flex-col transition-colors">
             <div className="bg-gradient-to-br from-indigo-500 to-purple-600 h-32 flex items-center justify-center text-center px-6">
               <div className="w-full">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-3">
@@ -153,10 +151,9 @@ export default function Home() {
               </div>
             </div>
             <div className="p-6 flex-1">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">3. Share Proof Publicly</h3>
-              <p className="text-slate-600 text-sm">
-                Every signature gets a unique verification URL. Share it anywhere - the proof is permanent
-                and tamper-evident.
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">3. Share Proof Publicly</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                Every signature gets a unique verification URL. Share it anywhere—the proof is permanent and tamper-proof.
               </p>
             </div>
           </div>
@@ -165,12 +162,12 @@ export default function Home() {
 
       {/* Features */}
       <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Built for Developers</h2>
-        <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl shadow-lg border border-slate-200 p-8 md:p-12">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Built for Developers</h2>
+        <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-neutral-800 dark:to-neutral-900 rounded-2xl shadow-lg border border-slate-200 dark:border-neutral-700 p-8 md:p-12 transition-colors">
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">5-Minute Integration</h3>
-              <p className="text-slate-600 mb-4">Drop-in SDK for JavaScript, TypeScript, and REST API</p>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">5-Minute Integration</h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-4">Drop-in SDK for JavaScript, TypeScript, and REST API</p>
               <div className="relative group">
                 <pre className="bg-slate-900 text-slate-100 p-5 rounded-lg text-sm overflow-x-auto font-mono shadow-xl ring-1 ring-slate-700">
 {`const result = await provenix.sign(text)
@@ -194,8 +191,8 @@ console.log(result.verificationUrl)`}
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">Embeddable Widget</h3>
-              <p className="text-slate-600 mb-4">Show verification status in your product</p>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">Embeddable Widget</h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-4">Show verification status in your product</p>
               <div className="relative group">
                 <pre className="bg-slate-900 text-slate-100 p-5 rounded-lg text-sm overflow-x-auto font-mono shadow-xl ring-1 ring-slate-700">
 {`<provenix-widget
@@ -226,27 +223,27 @@ console.log(result.verificationUrl)`}
 
       {/* Use Cases */}
       <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Perfect For</h2>
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Perfect For</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 text-center">
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-slate-200 dark:border-neutral-700 p-6 text-center transition-colors">
             <div className="text-3xl mb-3">✍️</div>
-            <h3 className="font-semibold text-slate-900 mb-2">AI Writing Tools</h3>
-            <p className="text-sm text-slate-600">Prove content authenticity to enterprise buyers</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white mb-2">AI Writing Tools</h3>
+            <p className="text-sm text-slate-600 dark:text-slate-300">Prove content authenticity to enterprise buyers</p>
           </div>
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 text-center">
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-slate-200 dark:border-neutral-700 p-6 text-center transition-colors">
             <div className="text-3xl mb-3">🎓</div>
-            <h3 className="font-semibold text-slate-900 mb-2">Education</h3>
-            <p className="text-sm text-slate-600">Replace guesswork with cryptographic proof</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Education</h3>
+            <p className="text-sm text-slate-600 dark:text-slate-300">Replace guesswork with mathematical proof</p>
           </div>
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 text-center">
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-slate-200 dark:border-neutral-700 p-6 text-center transition-colors">
             <div className="text-3xl mb-3">📄</div>
-            <h3 className="font-semibold text-slate-900 mb-2">Publishing</h3>
-            <p className="text-sm text-slate-600">Verify content origin and integrity</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Publishing</h3>
+            <p className="text-sm text-slate-600 dark:text-slate-300">Verify content origin and integrity</p>
           </div>
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 text-center">
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-slate-200 dark:border-neutral-700 p-6 text-center transition-colors">
             <div className="text-3xl mb-3">⚖️</div>
-            <h3 className="font-semibold text-slate-900 mb-2">Legal & Compliance</h3>
-            <p className="text-sm text-slate-600">Audit-ready, immutable records</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Legal & Compliance</h3>
+            <p className="text-sm text-slate-600 dark:text-slate-300">Audit-ready, immutable records</p>
           </div>
         </div>
       </section>
@@ -276,16 +273,16 @@ console.log(result.verificationUrl)`}
       </section>
 
       {/* Footer */}
-      <footer className="max-w-5xl mx-auto px-6 py-12 border-t border-slate-200">
-        <div className="text-center text-slate-500 space-y-2">
+      <footer className="max-w-5xl mx-auto px-6 py-12 border-t border-slate-200 dark:border-neutral-700">
+        <div className="text-center text-slate-500 dark:text-slate-400 space-y-2">
           <p>
-            <strong>Provenix</strong> — Deterministic provenance, not probabilistic detection
+            <strong className="text-slate-900 dark:text-white">Provenix</strong> — Deterministic provenance, not probabilistic detection
           </p>
           <p className="text-sm">
-            Built with Ed25519 cryptography • GDPR-compliant • No raw text stored
+            Military-grade encryption • GDPR-compliant • No raw text stored
           </p>
           <p className="text-sm">
-            <a href="mailto:founder@provenix.dev" className="text-indigo-600 hover:text-indigo-700">
+            <a href="mailto:founder@provenix.dev" className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300">
               founder@provenix.dev
             </a>
           </p>

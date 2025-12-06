@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -28,6 +29,18 @@ const config: Config = {
         },
         success: '#16A34A',
         error: '#DC2626',
+      },
+      keyframes: {
+        'glow-shift': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+      },
+      animation: {
+        glow: 'glow-shift 25s ease infinite alternate',
+      },
+      backgroundImage: {
+        'radial': 'radial-gradient(circle at center, var(--tw-gradient-stops))',
       },
     },
   },

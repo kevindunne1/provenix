@@ -5,6 +5,8 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import PostHogProvider from '@/components/PostHogProvider'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import { RadialGlowBackground } from '@/components/ui/RadialGlowBackground'
 
 export const metadata: Metadata = {
   title: 'Provenix - Cryptographic Provenance for AI-Generated Text',
@@ -17,13 +19,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="font-sans antialiased">
-        <PostHogProvider>
-          <Navigation />
-          <main>{children}</main>
-          <Footer />
-        </PostHogProvider>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <body className="min-h-screen relative font-sans antialiased">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange={false}>
+          <RadialGlowBackground />
+          <PostHogProvider>
+            <div className="relative z-0">
+              <Navigation />
+              <main>{children}</main>
+              <Footer />
+            </div>
+          </PostHogProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
